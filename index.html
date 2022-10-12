@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Immanuel Maruli Tua Pardede">
+        <meta name="description" content="Immanuel Maruli Tua Pardede's The Link">
+        <title>Form Validation Using JQuery Validation</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+        <style>
+            .h1{
+                padding-bottom: 20px;
+                border-bottom: 10px solid cyan;
+            }
+            label{
+                margin-top: 10px;
+                display: block;
+            }
+            .error{
+			    font-size:small;
+			    color:red;
+		    }
+        </style>
+        <script src="JQuery/jquery.min.js"></script>
+        <script src="JQuery/jquery.validate.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#form").validate({
+                    rules: {
+                        NRP : {
+                            digits: true,
+                            minlength:10,
+                            maxlength:10
+                        },
+                        DateofBirth: {
+                            indonesianDate:true
+                        },
+                        Age: {
+                            digits: true,
+                            range: [0, 100]
+                        }, 
+                        EmailAddress: {
+                            email: true
+                        },
+                        SiteAdress: {
+                            url: true
+                        },
+                        PasswordConfirmation: {
+                            equalTo: "#Password"
+                        }
+                    },
+                    messages: {
+                        NRP: {
+                            required: "NRP is required",
+                            minlength: "NRP has a fixed length of 10 digit number",
+                            maxlength: "NRP has a fixed length of 10 digit number"
+                        },
+                        EmailAddress: {
+                            required: "Email Address is required",
+                            email: "The Email Address format is not valid"
+                        },
+                        PasswordConfirmation: {
+                            equalTo: "Password Confirmation doesn't match the password"
+                        }
+                    }
+                });
+            });
+
+            $.validator.addMethod(
+                "indonesianDate",
+                function(value, element){
+                    return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+                },
+                "Please enter a date in the format of DD/MM/YYYY"
+            );
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <p class="h1">Input Students' Data</p>
+                    <form id="form">
+                        <div class="form-group">
+                            <label for="NRP">NRP</label>
+                            <input type="text" class="form-control" id="NRP" name="NRP" placeholder="Input your NRP here">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Input your Name here" required>
+                            <label for="Address">Address</label>
+                            <textarea class="form-control" id="Address" name="Address" rows="3" placeholder="Input your Address here"></textarea>
+                            <label for="DateofBirth">Date of Birth</label>
+                            <input type="text" class="form-control" id="DateofBirth" name="DateofBirth" placeholder="Input your Date of Birth here">
+                            <label for="Age">Age</label>
+                            <input type="text" class="form-control" id="Age" name="Age" placeholder="Input your Age here">
+                            <label for="EmailAddress">Email Address</label>
+                            <input type="email" class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Input your Email Address here">
+                            <label for="SiteAddress">Site Address</label>
+                            <input type="text" class="form-control" id="SiteAddress" name="SiteAddress" placeholder="Input your Site Address here">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Input your Password here">
+                            <label for="PasswordConfirmation">Password Confirmation</label>
+                            <input type="password" class="form-control" id="PasswordConfirmation" name="PasswordConfirmation" placeholder="Input your Password Confirmation here">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
